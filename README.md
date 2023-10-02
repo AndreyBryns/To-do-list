@@ -11,3 +11,7 @@ from app import app
 with app.app_context():
   db.create_all()
 ```
+Running app:
+```bash
+python app.py
+```
