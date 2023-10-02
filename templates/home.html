@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}To do list{% endblock %}
+
+{% block content %}
+
+<div class="navbar navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container d-flex justify-content-between">
+        <a class="navbar-brand d-flex align-items-center text-white">
+            <strong>To do list</strong>
+        </a>
+        <form method="POST" action="{{ url_for('main.home_post') }}">
+            <input class="form-control-sm d-flex rounded mb-1" name="inputTask" placeholder="Enter your task"
+                   required>
+            <button type="submit" class="btn btn-outline-light">Add task</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 full-height">
+    <div class="container bg-success rounded text-center">
+        <h1 class="h3 mb-3 font-weight-normal">Done</h1>
+        {% for task in done_list %}
+        <div class="container bg-light rounded mb-3 task-container">
+            <div class="task">{{ task.description }}</div>
+            <div class="btn-group" role="group">
+                <form method="POST" action="{{ url_for('main.home_post') }}">
+                    <input type=hidden value="{{ task.id }}" name="taskToDelete"/>
+                    <button type="submit" class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container bg-warning rounded text-center">
+        <h1 class="h3 mb-3 font-weight-normal">To do</h1>
+        {% for task in todo_list %}
+        <div class="container bg-light rounded mb-3 task-container">
+            <div class="task">{{ task.description }}</div>
+            <div class="btn-group" role="group">
+                <form method="POST" action="{{ url_for('main.home_post') }}">
+                    <input type=hidden value="{{ task.id }}" name="taskToDone"/>
+                    <button type="submit" class="btn btn-light"><i class="fa fa-check"></i></button>
+                </form>
+                <form method="POST" action="{{ url_for('main.home_post') }}">
+                    <input type=hidden value="{{ task.id }}" name="taskToDelete"/>
+                    <button type="submit" class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </form>
+                <form method="POST" action="{{ url_for('main.home_post') }}">
+                    <input type=hidden value="{{ task.id }}" name="taskToFail"/>
+                    <button type="submit" class="btn btn-light"><i class="fa fa-times"></i></button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container bg-danger rounded text-center">
+        <h1 class="h3 mb-3 font-weight-normal">Failed</h1>
+        {% for task in failed_list %}
+        <div class="container bg-light rounded mb-3 task-container">
+            <div class="task">{{ task.description }}</div>
+            <div class="btn-group" role="group">
+                <form method="POST" action="{{ url_for('main.home_post') }}">
+                    <input type=hidden value="{{ task.id }}" name="taskToDelete"/>
+                    <button type="submit" class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="form-sign container bg-dark p-md-4 rounded text-white text-center">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-danger" role="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/signup">
+        <h1 class="h3 mb-3 font-weight-normal">Sign up please</h1>
+        <input type="email" name="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
+        <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+    </form>
+    <a class="btn btn-outline-primary btn-block" href="login" type="button">I already have an account</a>
+</div>
+{% endblock %}
